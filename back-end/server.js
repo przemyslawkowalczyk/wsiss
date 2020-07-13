@@ -20,10 +20,10 @@ const Book = db.book;
 // run migrations
 // db.sequelize.sync();
 // force: true will drop the table if it already exists
-db.sequelize.sync({force: true}).then(() => {
-  console.log('Drop and Resync Database with { force: true }');
-  initial();
-});
+// db.sequelize.sync({force: true}).then(() => {
+//   console.log('Drop and Resync Database with { force: true }');
+//   initial();
+// });
 
 // routes
 require('./app/routes/auth.routes')(app);
@@ -35,7 +35,6 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-initial();
 function initial() {
   Book.create({
     name: 'name1',

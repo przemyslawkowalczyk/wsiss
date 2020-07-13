@@ -10,7 +10,24 @@ module.exports = function(app) {
     next();
   });
 
-  app.get("/api/test/all", controller.allAccess);
+  app.get("/api/test/all", [authJwt.verifyToken], controller.allAccess);
+  app.get(
+      "/api/test/my_books",
+      [authJwt.verifyToken],
+      controller.myBooks
+  );
+
+  app.post(
+      "/api/test/reserve_book",
+      [authJwt.verifyToken],
+      controller.reserveBook
+  );
+
+  app.put(
+      "/api/test/change_book_status",
+      [authJwt.verifyToken, authJwt.isModeratorOrAdmin],
+      controller.changeBookStatus
+  )
 
   app.get(
     "/api/test/user",
@@ -19,8 +36,8 @@ module.exports = function(app) {
   );
 
   app.get(
-    "/api/test/panel",
+    "/api/test/admin",
     [authJwt.verifyToken, authJwt.isModeratorOrAdmin],
-    controller.moderatorBoard
+    controller.adminBoard
   );
 };

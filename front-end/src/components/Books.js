@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from "react";
-
+import React, {useState, useEffect} from "react";
+import ReactTable from 'react-table-6'
+import 'react-table-6/react-table.css'
 import UserService from "../services/user.service";
-import ReactTable from "react-table-6";
 
-const BoardAdmin = () => {
-  const [books, setBooks] = useState([]);
+const Books = () => {
+    const [books, setBooks] = useState([]);
 
-  useEffect(() => {
-    UserService.getAdminBoard().then(
-      (response) => {
-        setBooks(response.data);
-      });
-  }, []);
+    useEffect(() => {
+        UserService.getMyBooks().then(
+            (response) => {
+                setBooks(response.data);
+            }
+        );
+    }, []);
 
     const columns = [
         {
-            Header: "Użytkownik",
-            accessor: 'book.user.username'
-        }, {
             Header: 'Autor',
             accessor: 'book.author'
         }, {
@@ -35,24 +33,16 @@ const BoardAdmin = () => {
                 loaned: 'Wypożyczona',
                 devoted: 'Oddana'
             }[props.value]}</span>
-        },
-        {
-            Header: '',
-            Cell: ({ row }) => {
-                console.log(row);
-                return <span>dupa</span>
-            }
         }
     ];
 
     return (
         <div className="container">
             <header className="jumbotron">
-                <h3>
-                    Panel Admina
-                </h3>
+                <h3>Panel Bibliotekarza</h3>
             </header>
             <ReactTable
+                loading={!books.length}
                 pageSizeOptions={[5, 10, 20]}
                 defaultPageSize={5}
                 filterable
@@ -61,7 +51,6 @@ const BoardAdmin = () => {
             />
         </div>
     );
-
 };
 
-export default BoardAdmin;
+export default Books;

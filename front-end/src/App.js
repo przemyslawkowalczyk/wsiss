@@ -8,9 +8,9 @@ import AuthService from "./services/auth.service";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
+import Books from "./components/Books";
 import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
-import BoardPanel from "./components/BoardPanel";
 import BoardAdmin from "./components/BoardAdmin";
 
 const App = () => {
@@ -93,13 +93,12 @@ const App = () => {
         <div className="container mt-3">
           <Switch>
             <Route exact path={["/"]} component={Home} />
-            <Route exact path={"/moje-wypozyczenia"} component={Home} />
+            <Route exact path={"/moje-wypozyczenia"} component={Books} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
-            <Route path="/panel" component={BoardPanel} />
-            <Route path="/admin" component={BoardAdmin} />
+            <Route path="/panel" component={BoardAdmin} />
           </Switch>
         </div>
       </div>
